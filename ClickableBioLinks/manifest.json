@@ -1,1 +1,1 @@
-{"name":"Template Plugin","description":"A plugin for use as a template.","authors":[{"name":"You!","id":"YOUR_ID_HERE"}],"main":"index.js","vendetta":{"icon":"ic_badge_staff"},"hash":"6ffe8d44e8a45e62e0f5fb25d79494209dd1f3e86bceb5102981b881d870c5cb"}
+{"name":"ClickableBioLinks","description":"Makes links in bios clickable","authors":[{"name":"Vendicated","id":"343383572805058560"}],"main":"index.js","vendetta":{"icon":"ic_link"},"hash":"6ffe8d44e8a45e62e0f5fb25d79494209dd1f3e86bceb5102981b881d870c5cb"}
