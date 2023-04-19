@@ -15,7 +15,7 @@ function walkReactTree(root: any, visit: (node: any) => void) {
             walkReactTree(child, visit);
         }
     } else {
-        visit(root);
+        visit(root.props.children);
     }
 }
 
