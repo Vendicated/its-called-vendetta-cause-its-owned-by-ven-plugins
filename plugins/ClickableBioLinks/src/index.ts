@@ -2,6 +2,7 @@ import { findByNameAll, findByProps } from "@vendetta/metro";
 import { url as URLOpener } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 
+const ActionShitter = findByProps("hideActionSheet");
 const ups = [];
 
 function walkReactTree(root: any, visit: (node: any) => void) {
@@ -15,7 +16,7 @@ function walkReactTree(root: any, visit: (node: any) => void) {
             walkReactTree(child, visit);
         }
     } else {
-        visit(root.props.children);
+        walkReactTree(root.props.children, visit);
     }
 }
 
@@ -31,7 +32,7 @@ for (const UserProfile of findByNameAll("BioText", false)) {
 
                 node.props.onPress = () => {
                     URLOpener.openURL(url);
-                    findByProps("hideActionSheet").hideActionSheet();
+                    ActionShitter.hideActionSheet();
                 };
             }
         });
