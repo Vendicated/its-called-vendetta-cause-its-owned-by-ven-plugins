@@ -1,4 +1,4 @@
-import { findByNameAll } from "@vendetta/metro";
+import { findByNameAll, findByProps } from "@vendetta/metro";
 import { url as URLOpener } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 
@@ -29,7 +29,10 @@ for (const UserProfile of findByNameAll("BioText", false)) {
                 const url = node.props.children?.[0];
                 if (typeof url !== "string") return;
 
-                node.props.onPress = () => URLOpener.openURL(url);
+                node.props.onPress = () => {
+                    URLOpener.openURL(url);
+                    findByProps("hideActionSheet").hideActionSheet();
+                };
             }
         });
     });
