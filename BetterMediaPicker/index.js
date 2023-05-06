@@ -1,0 +1,1 @@
+(function(n,e,t){"use strict";const a=t.after("default",e.findByName("MediaKeyboardHeader",!1),function(d,r){r.props.children.splice(-2)}),o=function(){return a()};return n.onUnload=o,n})({},vendetta.metro,vendetta.patcher);
