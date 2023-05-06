@@ -1,1 +1,1 @@
-{"name":"ClickableBioLinks","description":"Makes links in bios clickable","authors":[{"name":"Vendicated","id":"343383572805058560"}],"main":"index.js","vendetta":{"icon":"ic_link"},"hash":"26940f471d1c30ee3260550fb0736f5a0a97e20ce7e6f95d03755a56eeca130e"}
+{"name":"BetterBios","description":"Makes bio text selectable and links in them clickable","authors":[{"name":"Vendicated","id":"343383572805058560"}],"main":"index.js","vendetta":{"icon":"ic_profile_24px"},"hash":"d6c9eb4e8beb3d8431f0ee47efc5e5623dff99d5f777bc4b375d71231123e2ec"}
