@@ -1,9 +1,18 @@
 import { findByNameAll, findByProps } from "@vendetta/metro";
-import { url as URLOpener } from "@vendetta/metro/common";
+import { ReactNative, url as URLOpener, clipboard } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
 import { storage } from "@vendetta/plugin";
+import { getAssetIDByName } from "@vendetta/ui/assets";
+import { showToast } from "@vendetta/ui/toasts";
 
-const ActionShitter = findByProps("hideActionSheet");
+function lazy<T>(fn: () => T) {
+    let v: T;
+    return () => v ??= fn();
+}
+
+const findActionShitter = lazy(() => findByProps("hideActionSheet"));
+const findClipboardAsset = lazy(() => getAssetIDByName("ic_message_copy"));
+
 const ups = [];
 
 function walkReactTree(root: any, visit: (node: any) => void) {
@@ -23,8 +32,11 @@ function walkReactTree(root: any, visit: (node: any) => void) {
 
 // WHY DOES DISCORD HAVE TWO OF THESE IM GONNA EXPLODE
 for (const BioText of findByNameAll("BioText", false)) {
-    const up = after("default", BioText, (_, res) => {
+    const up = after("default", BioText, ([props], res) => {
         if (!res?.props?.children) return;
+
+        // make bio text selectable
+        res.props.selectable = true;
 
         walkReactTree(res, node => {
             if (node.props?.accessibilityRole === "link") {
@@ -34,10 +46,21 @@ for (const BioText of findByNameAll("BioText", false)) {
                 node.props.onPress = () => {
                     URLOpener.openURL(url);
                     if (storage.dismiss !== false)
-                        ActionShitter.hideActionSheet();
+                        findActionShitter().hideActionSheet();
                 };
             }
         });
+
+        return;
+        // explode
+        return (
+            <ReactNative.Pressable onLongPress={() => {
+                clipboard.setString(props.bio);
+                showToast("Copied bio to clipboard", findClipboardAsset());
+            }}>
+                {res}
+            </ReactNative.Pressable>
+        );
     });
 
     ups.push(up);

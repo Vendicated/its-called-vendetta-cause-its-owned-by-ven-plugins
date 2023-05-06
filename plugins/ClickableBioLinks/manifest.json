@@ -1,14 +1,14 @@
 {
-  "name": "ClickableBioLinks",
-  "description": "Makes links in bios clickable",
+  "name": "BetterBios",
+  "description": "Makes bio text selectable and links in them clickable",
   "authors": [
     {
       "name": "Vendicated",
       "id": "343383572805058560"
     }
   ],
-  "main": "src/index.ts",
+  "main": "src/index.tsx",
   "vendetta": {
-    "icon": "ic_link"
+    "icon": "ic_profile_24px"
   }
 }
