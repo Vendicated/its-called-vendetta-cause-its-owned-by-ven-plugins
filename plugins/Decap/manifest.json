@@ -1,0 +1,14 @@
+{
+  "name": "Decap",
+  "description": "Decapitalise your messages (some Cool MESSAGE => some cool MESSAGE)",
+  "authors": [
+    {
+      "name": "Vendicated",
+      "id": "343383572805058560"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "ic_message_edit"
+  }
+}
