@@ -9,7 +9,7 @@ function bef(obj: any, name: string, cb: (args: any[]) => any) {
 
 function decap(msg: { content?: string; }) {
     if (!msg?.content) return;
-    msg.content = msg.content?.replace(/\b[A-Z](?=[a-z]*\b)/g, m => m.toLowerCase());
+    msg.content = msg.content.replace(/\b[A-Z](?=[a-z]*\b)/g, m => m.toLowerCase());
 }
 
 bef(findByProps("editMessage", "sendMessage"), "sendMessage", args => decap(args[1]));
