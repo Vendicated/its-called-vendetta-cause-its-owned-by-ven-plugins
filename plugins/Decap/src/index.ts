@@ -14,6 +14,6 @@ function decap(msg: { content?: string; }) {
 
 bef(findByProps("editMessage", "sendMessage"), "sendMessage", args => decap(args[1]));
 
-// bef(findByProps("uploadFiles"), "uploadFiles", args => decap(args[0].parsedMessage));
+bef(findByProps("uploadLocalFiles"), "uploadLocalFiles", args => decap(args[0].parsedMessage));
 
 export const onUnload = () => ups.forEach(up => up());
