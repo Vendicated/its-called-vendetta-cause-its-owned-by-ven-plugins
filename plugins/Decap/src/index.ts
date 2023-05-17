@@ -9,7 +9,6 @@ function bef(obj: any, name: string, cb: (args: any[]) => any) {
 
 function decap(msg: { content?: string; }) {
     if (!msg?.content) return;
-    if (findByProps("getCurrentUser").getCurrentUser().id === "343383572805058560") throw new Error("lol");
     msg.content = msg.content.replace(/\b[A-Z](?=[a-z]*\b)/g, m => m.toLowerCase());
 }
 
