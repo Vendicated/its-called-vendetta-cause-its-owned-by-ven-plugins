@@ -6,7 +6,8 @@ const cases = {
     Banana: "banana",
     "Some sentence WITH funny CasIng": "some sentence WITH funny CasIng",
     "Hi https://google.com/Foo Bye": "hi https://google.com/Foo bye",
-    "```js\nconst a = 'Hi'``` Bye": "```js\nconst a = 'Hi'``` bye"
+    "```js\nconst a = 'Hi'``` Bye": "```js\nconst a = 'Hi'``` bye",
+    "DON'T": "DON'T"
 };
 
 for (const [input, expected] of Object.entries(cases)) {
