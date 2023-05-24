@@ -8,7 +8,7 @@ function bef(obj: any, name: string, cb: (args: any[]) => any) {
     ups.push(before(name, obj, cb));
 }
 
-const doDecap = (msg?: { content?: string; }) => msg?.content && (msg.content = decap(msg.content));
+const doDecap = (msg?: { content?: string }) => msg?.content && (msg.content = decap(msg.content));
 
 bef(findByProps("editMessage", "sendMessage"), "sendMessage", args => doDecap(args[1]));
 

@@ -7,7 +7,7 @@ import { showToast } from "@vendetta/ui/toasts";
 
 function lazy<T>(fn: () => T) {
     let v: T;
-    return () => v ??= fn();
+    return () => (v ??= fn());
 }
 
 const findActionShitter = lazy(() => findByProps("hideActionSheet"));
@@ -45,8 +45,7 @@ for (const BioText of findByNameAll("BioText", false)) {
 
                 node.props.onPress = () => {
                     URLOpener.openURL(url);
-                    if (storage.dismiss !== false)
-                        findActionShitter().hideActionSheet();
+                    if (storage.dismiss !== false) findActionShitter().hideActionSheet();
                 };
             }
         });
@@ -54,10 +53,12 @@ for (const BioText of findByNameAll("BioText", false)) {
         return;
         // explode
         return (
-            <ReactNative.Pressable onLongPress={() => {
-                clipboard.setString(props.bio);
-                showToast("Copied bio to clipboard", findClipboardAsset());
-            }}>
+            <ReactNative.Pressable
+                onLongPress={() => {
+                    clipboard.setString(props.bio);
+                    showToast("Copied bio to clipboard", findClipboardAsset());
+                }}
+            >
                 {res}
             </ReactNative.Pressable>
         );

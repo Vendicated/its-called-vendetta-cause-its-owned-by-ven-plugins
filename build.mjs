@@ -31,21 +31,18 @@ const plugins = [
                     parser: {
                         syntax: ts ? "typescript" : "ecmascript",
                         tsx,
-                        jsx,
-                    },
+                        jsx
+                    }
                 },
                 env: {
                     targets: "defaults",
-                    include: [
-                        "transform-classes",
-                        "transform-arrow-functions",
-                    ],
-                },
+                    include: ["transform-classes", "transform-arrow-functions"]
+                }
             });
             return result.code;
-        },
+        }
     },
-    esbuild({ minify: true }),
+    esbuild({ minify: true })
 ];
 
 for (let plug of await readdir("./plugins")) {
@@ -55,8 +52,8 @@ for (let plug of await readdir("./plugins")) {
     try {
         const bundle = await rollup({
             input: `./plugins/${plug}/${manifest.main}`,
-            onwarn: () => { },
-            plugins,
+            onwarn: () => {},
+            plugins
         });
 
         await bundle.write({
@@ -64,14 +61,14 @@ for (let plug of await readdir("./plugins")) {
             globals(id) {
                 if (id.startsWith("@vendetta")) return id.substring(1).replace(/\//g, ".");
                 const map = {
-                    react: "window.React",
+                    react: "window.React"
                 };
 
                 return map[id] || null;
             },
             format: "iife",
             compact: true,
-            exports: "named",
+            exports: "named"
         });
         await bundle.close();
 

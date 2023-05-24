@@ -10,7 +10,7 @@ export default function Settings() {
             label="Dismiss ActionSheet"
             subLabel="Close the profile when clicking a link"
             value={storage.dismiss ?? true}
-            onValueChange={v => storage.dismiss = v}
+            onValueChange={v => (storage.dismiss = v)}
             note=""
         />
     );
