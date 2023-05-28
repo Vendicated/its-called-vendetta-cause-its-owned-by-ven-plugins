@@ -1,4 +1,4 @@
-const re = /^[A-Z][a-z']*$/;
+const re = /^[A-Z][a-z']*[.,!?:;]*$/;
 
 export function decap(text: string) {
     if (!text || text.length < 2) return text;
@@ -9,7 +9,7 @@ export function decap(text: string) {
     for (let i = 0; i < words.length; i++) {
         const word = words[i];
 
-        const findNextMaybe = (sequence: string) => {
+        const goToClosing = (sequence: string) => {
             const buf = [word];
 
             for (let j = i + 1; j < words.length; j++) {
@@ -25,8 +25,8 @@ export function decap(text: string) {
         };
 
         if (word.startsWith("https://")) out.push(word);
-        else if (word.startsWith("```")) findNextMaybe("```");
-        else if (word.startsWith("`")) findNextMaybe("`");
+        else if (word.startsWith("```")) goToClosing("```");
+        else if (word.startsWith("`")) goToClosing("`");
         else out.push(word.replace(re, m => m.toLowerCase()));
     }
 
