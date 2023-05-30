@@ -6,7 +6,11 @@
         "moduleResolution": "node",
         "esModuleInterop": true,
         "jsx": "react-native",
-        "allowJs": true
+        "allowJs": true,
+        "baseUrl": ".",
+        "paths": {
+            "~/shared/*": ["shared/*"]
+        }
     },
-    "include": ["plugins", "node_modules/vendetta-types", "tests"]
+    "include": ["plugins", "node_modules/vendetta-types", "tests", "shared"]
 }

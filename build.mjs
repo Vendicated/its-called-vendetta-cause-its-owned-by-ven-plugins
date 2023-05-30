@@ -1,17 +1,21 @@
 import { readFile, writeFile, readdir } from "fs/promises";
-import { extname } from "path";
+import { extname, resolve } from "path";
 import { createHash } from "crypto";
 
 import { rollup } from "rollup";
 import esbuild from "rollup-plugin-esbuild";
 import commonjs from "@rollup/plugin-commonjs";
 import nodeResolve from "@rollup/plugin-node-resolve";
+import { typescriptPaths } from "rollup-plugin-typescript-paths";
 import swc from "@swc/core";
 
 const extensions = [".js", ".jsx", ".mjs", ".ts", ".tsx", ".cts", ".mts"];
 
 /** @type import("rollup").InputPluginOption */
 const plugins = [
+    typescriptPaths({
+        preserveExtensions: true
+    }),
     nodeResolve(),
     commonjs(),
     {

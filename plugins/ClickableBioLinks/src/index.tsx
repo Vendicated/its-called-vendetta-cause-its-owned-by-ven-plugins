@@ -1,9 +1,9 @@
 import { findByNameAll, findByProps } from "@vendetta/metro";
 import { ReactNative, url as URLOpener, clipboard } from "@vendetta/metro/common";
-import { after } from "@vendetta/patcher";
 import { storage } from "@vendetta/plugin";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
+import { after, unpatchAll } from "~/shared/vendetta-wrappers";
 
 function lazy<T>(fn: () => T) {
     let v: T;
@@ -12,8 +12,6 @@ function lazy<T>(fn: () => T) {
 
 const findActionShitter = lazy(() => findByProps("hideActionSheet"));
 const findClipboardAsset = lazy(() => getAssetIDByName("ic_message_copy"));
-
-const ups = [];
 
 function walkReactTree(root: any, visit: (node: any) => void) {
     if (!root) return;
@@ -32,7 +30,7 @@ function walkReactTree(root: any, visit: (node: any) => void) {
 
 // WHY DOES DISCORD HAVE TWO OF THESE IM GONNA EXPLODE
 for (const BioText of findByNameAll("BioText", false)) {
-    const up = after("default", BioText, ([props], res) => {
+    after("default", BioText, ([props], res) => {
         if (!res?.props?.children) return;
 
         // make bio text selectable
@@ -63,10 +61,8 @@ for (const BioText of findByNameAll("BioText", false)) {
             </ReactNative.Pressable>
         );
     });
-
-    ups.push(up);
 }
 
-export const onUnload = () => ups.forEach(up => up());
+export const onUnload = () => unpatchAll();
 
 export { default as settings } from "./settings";

@@ -1,17 +1,15 @@
 import { findByProps } from "@vendetta/metro";
-import { before } from "@vendetta/patcher";
 import { decap } from "./decap";
+import { before, unpatchAll } from "~/shared/vendetta-wrappers";
 
-const ups = [];
-
-function bef(obj: any, name: string, cb: (args: any[]) => any) {
-    ups.push(before(name, obj, cb));
+function doDecap(msg?: { content?: string }) {
+    if (msg?.content) {
+        msg.content = decap(msg.content);
+    }
 }
 
-const doDecap = (msg?: { content?: string }) => msg?.content && (msg.content = decap(msg.content));
+before("sendMessage", findByProps("editMessage", "sendMessage"), args => void doDecap(args[1]));
 
-bef(findByProps("editMessage", "sendMessage"), "sendMessage", args => doDecap(args[1]));
+before("uploadLocalFiles", findByProps("uploadLocalFiles"), args => void doDecap(args[0].parsedMessage));
 
-bef(findByProps("uploadLocalFiles"), "uploadLocalFiles", args => doDecap(args[0].parsedMessage));
-
-export const onUnload = () => ups.forEach(up => up());
+export const onUnload = () => unpatchAll();
