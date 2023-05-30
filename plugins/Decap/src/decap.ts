@@ -2,6 +2,8 @@ const re = /^[A-Z][a-z']*[.,!?:;]*$/;
 
 export function decap(text: string) {
     if (!text || text.length < 2) return text;
+    // all caps
+    if (text.toUpperCase() === text) return text;
 
     const out = [] as string[];
 
